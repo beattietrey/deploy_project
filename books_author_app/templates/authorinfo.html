@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books and Authors</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container p-5">
+        <h1>{{author.first_name}} {{author.last_name}}</h1>
+        <h5>Id: {{autho.id}}</h5>
+        <p>Notes: {{author.notes}}</p>
+        <p>Books:</p>
+        <ul>
+            {% for book in author.books.all %}
+            <li>{{book.title}}</li>
+            {% endfor %}
+        </ul>
+        <div class="container">
+            <form action="/book_to_author/{{author.id}}" method="post">
+                {% csrf_token %}
+                <select class="form-select" aria-label="Default select example" name="new_book" required>
+                    {% for book in books%}
+                    {% if book not in author.books.all%}
+                    <option value="{{book.id}}">{{book.title}}</option>
+                    {%endif%}
+                    {%endfor%}
+                </select>
+                <button type="submit" class='btn-primary'>Add</button>
+            </form>
+            <a href="/authors" class="btn btn-dark">Back to Authors</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+>>> book1 = Book.objects.create(title='C Sharp', desc='A book about C#')   
+>>> book2 = Book.objects.create(title='Java', desc='A book about Java')    
+>>> book3 = Book.objects.create(title='Python', desc='A book about Python')  
+>>> book4 = Book.objects.create(title='PHP', desc='A book about PHP')     
+>>> book5= Book.objects.create(title='Ruby', desc='A book about Ruby') 
+
+>>> author1=Author.objects.create(first_name='Jane',last_name='Austen')
+>>> author2=Author.objects.create(first_name='Emily',last_name='Dickinson') 
+>>> author3=Author.objects.create(first_name='Fyodor',last_name='Dostoevsky') 
+>>> author4=Author.objects.create(first_name='William',last_name='Shakespeare') 
+>>> author5=Author.objects.create(first_name='Lau',last_name='Tzu')
+
+>>> book_update = Book.objects.get(title='C Sharp') 
+>>> book_update.title = 'C#'
+>>> book_update.save()
+
+>>> author_update = Author.objects.get(id=4)
+>>> author_update.first_name = 'Bill'
+>>> author_update.save()
+
+>>> author1 = Author.objects.first() 
+>>> author1.books.add(Book.objects.first(), Book.objects.get(id=2))
+>>> author1.save()
+
+>>> author2 = Author.objects.get(id=2)
+>>> author2.books.add(Book.objects.get(id=1),Book.objects.get(id=2),Book.objects.get(id=3))
+>>> author2.save()
+
+>>> author3 = Author.objects.get(id=3) 
+>>> author3.books.add(Book.objects.get(id=1),Book.objects.get(id=2),Book.objects.get(id=3),Book.objects.get(id=4))
+>>> author3.save()
+
+>>> author4 = Author.objects.get(id=4) 
+>>> author4.books.add(Book.objects.get(id=1),Book.objects.get(id=2),Book.objects.get(id=3),Book.objects.get(id=4),Book.objects.get(id=5)) 
+>>> author4.save()
+
+>>> Book.objects.get(id=3).authors.all()
+
+>>> author_to_remove = Book.objects.get(id=3).authors.first()
+>>> book3 = Book.objects.get(id=3) 
+>>> book3.authors.remove(author_to_remove)
+>>> book3.save()
+
+>>> author5 = Author.objects.last()  
+>>> author5.books.add(Book.objects.get(id=2))
+
+>>> book5 = Book.objects.last()
+>>> book5.authors.all() 
